@@ -24,9 +24,11 @@ class List extends React.Component {
               key={card.id}
               title={card.title}
               content={card.content}
+              onClickDelete={this.props.onClickDelete}
             />
           )}
           <button 
+            onClick={() => this.props.onClickAdd(this.props.id)}
             type="button" 
             className="List-add-button"
           >
