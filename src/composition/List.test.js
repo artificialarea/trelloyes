@@ -5,19 +5,15 @@ import renderer from 'react-test-renderer';
 import List from './List';
 
 describe('<List />', () => {
-    it('renders without caching', ()=> {
+  
+    it('renders without crashing', ()=> {
         const div = document.createElement('div');
-
-        //render
         ReactDom.render(<List />, div);
-
-        //clean 
         ReactDom.unmountComponentAtNode(div);
 
     });
 
     it('renders UI as expected', () => {
-        //test
         const tree = renderer.create(<List />).toJSON();
         expect(tree).toMatchSnapshot();
     });
