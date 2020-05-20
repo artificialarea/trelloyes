@@ -8,6 +8,15 @@ function omit(obj, keyToOmit) {
   return rest;
 }
 
+const newRandomCard = () => {
+  const id = Math.random().toString(36).substring(2, 4)
+    + Math.random().toString(36).substring(2, 4);
+  return {
+    id,
+    title: `Random Card ${id}`,
+    content: 'lorem ipsum',
+  }
+}
 
 class App extends React.Component {
 
@@ -46,7 +55,23 @@ class App extends React.Component {
 
   handleAddCard = (listId) => {
     console.log('handleAddCard ran', {listId})
+    const newCard = newRandomCard()
+    console.log(newCard)
 
+    const newLists = this.state.store.lists.map(list =>{
+      if(listId === list.id){
+        return {...list, cardIds: [...list.cardIds, newCard.id]};
+      }
+      return list;
+    })
+
+    this.setState({
+      store:{
+        lists: newLists,
+        allCards: {...this.state.store.allCards, [newCard.id] : newCard},
+      }
+    })
+    console.log(this.state.store.allCards)
   }
 
 
