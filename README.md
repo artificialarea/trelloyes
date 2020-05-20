@@ -1,9 +1,9 @@
-## Pair Programming
-Jonathan, Alen & Sacha
-
 ## Per Thinkful Assignments
 - [x] v1. [Checkpoint 7: Default Props and Class Components](https://courses.thinkful.com/react-v1/checkpoint/7#assignment)
 - [x] v2. [Checkpoint 11: Callback Props](https://courses.thinkful.com/react-v1/checkpoint/11#assignment)
+
+## Pair Programming
+Jonathan, Alen & Sacha
 
 <br/>
 <br/>
