@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import List from './composition/List';
 import STORE from './STORE';
 import './App.css';
 
+// fn provided
 function omit(obj, keyToOmit) {
   let {[keyToOmit]: _, ...rest} = obj;
   return rest;
 }
-
+// fn provided
 const newRandomCard = () => {
   const id = Math.random().toString(36).substring(2, 4)
     + Math.random().toString(36).substring(2, 4);
@@ -18,31 +19,23 @@ const newRandomCard = () => {
   }
 }
 
-class App extends React.Component {
+export default class App extends React.Component {
 
   state = {
     store: STORE,
   }
 
-  // static defaultProps = {
-  //   store: {
-  //     lists: [],
-  //     allCards: {},
-  //   }
-  // };
-
-
   handleDeleteCard = (cardId) => {
-    const lists = this.state.store.lists;
-    const allCards = this.state.store.allCards;
+    const { lists, allCards} = this.state.store;
+    // equivalent to:
+    // const lists = this.state.store.lists;
+    // const allCards = this.state.store.allCards;
 
-    console.log('handleDeleteCard ', {cardId})
-    const newLists = lists.map(list => ({...list,
-      cardIds: list.cardIds.filter(id => id !== cardId)
+    const newLists = lists.map(list => ({
+      ...list,
+      cardIds: list.cardIds.filter(id => id !== cardId),
     }));
-    console.log(newLists);
     const newCards = omit(allCards, cardId);
-    console.log(newCards);
 
     this.setState({
       store:{
@@ -50,17 +43,16 @@ class App extends React.Component {
         allCards: newCards,
       }
     })
-    
-  }
+  };
 
   handleAddCard = (listId) => {
-    console.log('handleAddCard ran', {listId})
     const newCard = newRandomCard()
-    console.log(newCard)
-
     const newLists = this.state.store.lists.map(list =>{
       if(listId === list.id){
-        return {...list, cardIds: [...list.cardIds, newCard.id]};
+        return {
+          ...list, 
+          cardIds: [...list.cardIds, newCard.id]
+        };
       }
       return list;
     })
@@ -68,31 +60,28 @@ class App extends React.Component {
     this.setState({
       store:{
         lists: newLists,
-        allCards: {...this.state.store.allCards, [newCard.id] : newCard},
+        allCards: {
+          ...this.state.store.allCards, 
+          [newCard.id] : newCard},
       }
     })
-    console.log(this.state.store.allCards)
-  }
-
-
-
+  };
 
   render() {
-    
     const { store } = this.state;   
-    console.log(this.state.store);
 
+    // NOTE: 'key' in <List key={list.id} /> is problematic special prop, thus requiring the addition of <List key={list.id} id={list.id} />
+    // see: https://reactjs.org/warnings/special-props.html
     return (
       <main className="App">
         <header className="App-header">
           <h1>Trelloyes!</h1>
         </header>
         <div className="App-list">
-          {/* <List /> */}
           {store.lists.map(list => 
             <List 
               key={list.id}
-              id={list.id} // req, see: https://reactjs.org/warnings/special-props.html
+              id={list.id} // see NOTE
               header={list.header}
               cards = {list.cardIds.map(id => store.allCards[id])}
               onClickDelete={this.handleDeleteCard}
@@ -104,5 +93,3 @@ class App extends React.Component {
     );
   };
 }
-
-export default App;

@@ -2,8 +2,7 @@ import React from "react";
 import Card from "./Card";
 import "./List.css";
 
-
-class List extends React.Component {
+export default class List extends React.Component {
 
   static defaultProps = {
     key: '',
@@ -12,6 +11,8 @@ class List extends React.Component {
   };
 
   render() {
+    // NOTE: 'key' in <Card key={card.id} /> is problematic special prop, thus requiring the addition of <Card key={card.id} id={card.id} />
+    // see: https://reactjs.org/warnings/special-props.html
     return (
       <section className="List">
         <header className="List-header">
@@ -21,7 +22,7 @@ class List extends React.Component {
           {this.props.cards.map((card) =>  
             <Card 
               key={card.id}
-              id={card.id} // req, see: https://reactjs.org/warnings/special-props.html
+              id={card.id} // see NOTE
               title={card.title}
               content={card.content}
               onClickDelete={this.props.onClickDelete}
@@ -39,5 +40,3 @@ class List extends React.Component {
     );
   }
 }
-
-export default List;
