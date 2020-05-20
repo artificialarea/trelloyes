@@ -3,6 +3,11 @@ import List from './composition/List';
 import STORE from './STORE';
 import './App.css';
 
+function omit(obj, keyToOmit) {
+  let {[keyToOmit]: _, ...rest} = obj;
+  return rest;
+}
+
 
 class App extends React.Component {
 
@@ -17,13 +22,35 @@ class App extends React.Component {
   //   }
   // };
 
+
   handleDeleteCard = (cardId) => {
-    console.log('handleDeleteCard ran', {cardId})
+    const lists = this.state.store.lists;
+    const allCards = this.state.store.allCards;
+
+    console.log('handleDeleteCard ', {cardId})
+    const newLists = lists.map(list => ({...list,
+      cardIds: list.cardIds.filter(id => id !== cardId)
+    }));
+    console.log(newLists);
+    const newCards = omit(allCards, cardId);
+    console.log(newCards);
+
+    this.setState({
+      store:{
+        lists: newLists,
+        allCards: newCards,
+      }
+    })
+    
   }
 
   handleAddCard = (listId) => {
     console.log('handleAddCard ran', {listId})
+
   }
+
+
+
 
   render() {
     
