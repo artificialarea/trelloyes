@@ -26,8 +26,8 @@ export default class App extends React.Component {
   }
 
   handleDeleteCard = (cardId) => {
-    const { lists, allCards} = this.state.store;
-    // equivalent to:
+    const { lists, allCards } = this.state.store;
+    // ^^ destructuring object, equivalent to:
     // const lists = this.state.store.lists;
     // const allCards = this.state.store.allCards;
 
