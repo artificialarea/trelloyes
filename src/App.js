@@ -17,12 +17,12 @@ class App extends React.Component {
   //   }
   // };
 
-  handleDeleteCard = () => {
-    console.log('handleDeleteCard ran')
+  handleDeleteCard = (cardId) => {
+    console.log('handleDeleteCard ran', {cardId})
   }
 
-  handleAddCard = () => {
-    console.log('handleAddCard ran')
+  handleAddCard = (listId) => {
+    console.log('handleAddCard ran', {listId})
   }
 
   render() {
@@ -40,6 +40,7 @@ class App extends React.Component {
           {store.lists.map(list => 
             <List 
               key={list.id}
+              id={list.id} // req, see: https://reactjs.org/warnings/special-props.html
               header={list.header}
               cards = {list.cardIds.map(id => store.allCards[id])}
               onClickDelete={this.handleDeleteCard}

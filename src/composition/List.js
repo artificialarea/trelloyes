@@ -18,10 +18,10 @@ class List extends React.Component {
           <h2>{this.props.header}</h2>
         </header>
         <div className="List-cards">
-          {/* <Card /> */}
           {this.props.cards.map((card) =>  
             <Card 
               key={card.id}
+              id={card.id} // req, see: https://reactjs.org/warnings/special-props.html
               title={card.title}
               content={card.content}
               onClickDelete={this.props.onClickDelete}
