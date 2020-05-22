@@ -25,25 +25,25 @@ export default class App extends React.Component {
     store: STORE,
   }
 
-  // handleDeleteCard = (cardId) => {
-  //   const { lists, allCards } = this.state.store;
-  //   // ^^ destructuring object, equivalent to:
-  //   // const lists = this.state.store.lists;
-  //   // const allCards = this.state.store.allCards;
+  handleDeleteCard = (cardId) => {
+    const { lists, allCards } = this.state.store;
+    // ^^ destructuring object, equivalent to:
+    // const lists = this.state.store.lists;
+    // const allCards = this.state.store.allCards;
 
-  //   const newLists = lists.map(list => ({
-  //     ...list,
-  //     cardIds: list.cardIds.filter(id => id !== cardId),
-  //   }));
-  //   const newCards = omit(allCards, cardId);
+    const newLists = lists.map(list => ({
+      ...list,
+      cardIds: list.cardIds.filter(id => id !== cardId),
+    }));
+    const newCards = omit(allCards, cardId);
 
-  //   this.setState({
-  //     store:{
-  //       lists: newLists,
-  //       allCards: newCards,
-  //     }
-  //   })
-  // };
+    this.setState({
+      store:{
+        lists: newLists,
+        allCards: newCards,
+      }
+    })
+  };
 
   handleAddCard = (listId) => {
     const newCard = newRandomCard()
